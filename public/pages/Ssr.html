@@ -146,71 +146,8 @@ app.get("/ssr", (req, res) => {
       One important last note, is that when doing this kind of ssr, you have to
       keep in mind that you are breaking up your html documents, and then
       collecting them in the app.js. This means that you have to think about
-      what you put in them. You need to not mistakenly include multiple body
-      and html tags, when finally assembling the pages again. See code snippet 
-      for an example.
+      what you put in them. You need to not mistakenly include multiple body and
+      html tags, when finally assembling the pages again.
     </p>
-
-    <details>
-      <summary>Code Snippet</summary>
-      <div class="snippet-content">
-        <pre>
-          <code>
-<p class="code-comment">// header - notice it only has the opening html,
-//body and div tag. The closing ones gets added in the footer, so it wraps
-//the whole page.
-</body>
-</p>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>%%DOCUMENT_TITLE%%</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="page-container">
-      <header class="navigation">
-        <nav>
-          <div class="nav-headline"><p>Node.js</p></div>
-          <div class="nav-subject-headline"><p>Subjects</p></div>
-          <div class="nav-subject-container">
-            <ul>
-              <li class="nav-subject %%JAVASCRIPTMASTERY_ACTIVE%%"><a href="/">Javascript Mastery</a></li>
-              <li class="nav-subject %%TERMINALCOMMANDS_ACTIVE%%"><a href="/terminalCommands">Terminal Commands</a></li>
-              <li class="nav-subject %%NODEJS_ACTIVE%%"><a href="/nodeJs">Node.js</a></li>
-              <li class="nav-subject %%RESTAPI_ACTIVE%%"><a href="/restApi">Rest API</a></li>
-              <li class="nav-subject %%SSR_ACTIVE%%"><a href="/Ssr">SSR</a></li>
-            </ul>
-          </div>
-        </nav>
-      </header>
-
-<p class="code-comment">// page</p>
-<main class="content-container">
-  <h1>Terminal Commands</h1>
-
-  <section class="content-section">
-    <h2>cd</h2>
-    <br />
-    <p>
-      This command changes the directory that you are currently working with in
-      the terminal. This is a very useful and common command, which let you
-      create delete and edit files in different folders.
-    </p>
-  </section>
-</main>
-
-<p class="code-comment">// footer - notice the closing tags here as stated earlier</p>
-      </div>
-    <script src="script.js"></script>
-  </body>
-</html>
-          </code>
-        </pre>
-      </div>
-    </details>
   </section>
 </main>
