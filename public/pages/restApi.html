@@ -156,4 +156,32 @@ app.delete("/movies/:id", (req, res) => {
       </div>
     </details>
   </section>
+
+  <section class="content-section">
+    <h2>Rest-api theory</h2>
+    <br />
+    <p>
+      The rest-api should have a specific order, as it helps getting a quick
+      overview. The most common order is the following: get, post, put, patch,
+      delete.
+    </p>
+    <p>
+      the get method fetches all the resources. the post method creates a
+      specific new resource. the put method updates a specific resource. the
+      patch method partially updates a specific resource. the delete method
+      deletes a specific resource.
+    </p>
+    <p>
+      When naming your endpoints, you have to think about what the table in the
+      database is called, as these should directly map to that table. This means
+      that in our example we always write movies, and not movie, as movie does
+      not map to anything in our database. In our case our array that mimics a
+      database.
+    </p>
+    <p>
+      You can have multiple of the same endpoints, as long as the HTTP method
+      differ. This is why both our get and post method have the same endpoint,
+      aswell as our put, path and delete share the same endpoint!
+    </p>
+  </section>
 </main>
