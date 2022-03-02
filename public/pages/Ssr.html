@@ -1,0 +1,216 @@
+<main class="content-container">
+  <h1>SSR</h1>
+
+  <section class="content-section">
+    <h2>What is SSR - and why use it?</h2>
+    <br />
+    <p>
+      Server side rendering makes the server do all the hard work, instead of
+      the client. When doing server side rendering, the client do not have to
+      use much cpu power to assemble and prepare all the pages to display to the
+      user. This have some benefits. One being that the page is fast, since
+      everything is loaded and compiled beforehand. It also is more optimal for
+      SEO reasons, because now a web crawler will not see an empty site when
+      browsing your site, and therefore you might rank higher on search engines.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>The public folder</h2>
+    <br />
+    <p>
+      We can make our static files, like css, javascript, and image files
+      available to the client via. the public folder. A little bit of setup is
+      required, as we need to specify that this folder is open to the public. It
+      is not getting served per default! It is really quite simple, and require
+      just one line of code.
+    </p>
+
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+<p class="code-comment">// now all files you put in your public folder
+// can be access by the client.
+</p>
+app.use(express.static("public"));
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>How to do SSR in node.js</h2>
+    <br />
+    <p>
+      In node.js there are multiple ways of doing SSRm this is just one way of
+      doing it. We will do it by splitting out html up into multiple files, and
+      then on server startup make our server read those files with the fs system
+      and saving them in variables. We need to remember to convert this into
+      strings, as we will have to serve the files with the send method. Lastly
+      we will make the server assemble the pages so they become whole, and we
+      might also want to replace some html in this process, like adding an
+      active class to highlight something in the menu, or changing the title on
+      each page.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+<p class="code-comment">// components</p>
+const nav = fs.readFileSync("./public/components/nav.html").toString();
+const footer = fs.readFileSync("./public/components/footer.html").toString();
+
+<p class="code-comment">// pages</p>
+const javascriptMastery = fs
+  .readFileSync("./public/pages/javascriptMastery.html")
+  .toString();
+
+const nodeJs = fs.readFileSync("./public/pages/nodeJs.html").toString();
+
+const restApi = fs.readFileSync("./public/pages/restApi.html").toString();
+
+const Ssr = fs.readFileSync("./public/pages/Ssr.html").toString();
+
+const terminalCommands = fs
+  .readFileSync("./public/pages/terminalCommands.html")
+  .toString();
+
+<p class="code-comment">// assemble pages</p>
+const javascriptMasteryPage =
+  nav
+    .replace("%%DOCUMENT_TITLE%%", "javascriptMastery")
+    .replace("%%JAVASCRIPTMASTERY_ACTIVE%%", "active") +
+  javascriptMastery +
+  footer;
+
+const nodeJsPage =
+  nav
+    .replace("%%DOCUMENT_TITLE%%", "Node.js")
+    .replace("%%NODEJS_ACTIVE%%", "active") +
+  nodeJs +
+  footer;
+
+const restApiPage =
+  nav
+    .replace("%%DOCUMENT_TITLE%%", "Rest API")
+    .replace("%%RESTAPI_ACTIVE%%", "active") +
+  restApi +
+  footer;
+
+const SsrPage =
+  nav.replace("%%DOCUMENT_TITLE%%", "SSR").replace("%%SSR_ACTIVE%%", "active") +
+  Ssr +
+  footer;
+
+const terminalCommandsPage =
+  nav
+    .replace("%%DOCUMENT_TITLE%%", "Terminal Commands")
+    .replace("%%TERMINALCOMMANDS_ACTIVE%%", "active") +
+  terminalCommands +
+  footer;
+
+<p class="code-comment">// serve ssr rendered pages with res.send() method</p>
+app.get("/", (req, res) => {
+  res.send(javascriptMasteryPage);
+});
+
+app.get("/terminalCommands", (req, res) => {
+  res.send(terminalCommandsPage);
+});
+
+app.get("/nodeJs", (req, res) => {
+  res.send(nodeJsPage);
+});
+
+app.get("/restApi", (req, res) => {
+  res.send(restApiPage);
+});
+
+app.get("/ssr", (req, res) => {
+  res.send(SsrPage);
+});
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>Wrap up</h2>
+    <br />
+    <p>
+      One important last note, is that when doing this kind of ssr, you have to
+      keep in mind that you are breaking up your html documents, and then
+      collecting them in the app.js. This means that you have to think about
+      what you put in them. You need to not mistakenly include multiple body
+      and html tags, when finally assembling the pages again. See code snippet 
+      for an example.
+    </p>
+
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+<p class="code-comment">// header - notice it only has the opening html,
+//body and div tag. The closing ones gets added in the footer, so it wraps
+//the whole page.
+</body>
+</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>%%DOCUMENT_TITLE%%</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-container">
+      <header class="navigation">
+        <nav>
+          <div class="nav-headline"><p>Node.js</p></div>
+          <div class="nav-subject-headline"><p>Subjects</p></div>
+          <div class="nav-subject-container">
+            <ul>
+              <li class="nav-subject %%JAVASCRIPTMASTERY_ACTIVE%%"><a href="/">Javascript Mastery</a></li>
+              <li class="nav-subject %%TERMINALCOMMANDS_ACTIVE%%"><a href="/terminalCommands">Terminal Commands</a></li>
+              <li class="nav-subject %%NODEJS_ACTIVE%%"><a href="/nodeJs">Node.js</a></li>
+              <li class="nav-subject %%RESTAPI_ACTIVE%%"><a href="/restApi">Rest API</a></li>
+              <li class="nav-subject %%SSR_ACTIVE%%"><a href="/Ssr">SSR</a></li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+<p class="code-comment">// page</p>
+<main class="content-container">
+  <h1>Terminal Commands</h1>
+
+  <section class="content-section">
+    <h2>cd</h2>
+    <br />
+    <p>
+      This command changes the directory that you are currently working with in
+      the terminal. This is a very useful and common command, which let you
+      create delete and edit files in different folders.
+    </p>
+  </section>
+</main>
+
+<p class="code-comment">// footer - notice the closing tags here as stated earlier</p>
+      </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+</main>

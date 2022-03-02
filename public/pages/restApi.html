@@ -1,0 +1,159 @@
+<main class="content-container">
+  <h1>rest API</h1>
+
+  <section class="content-section">
+    <h2>Express</h2>
+    <br />
+    <p>
+      Express is a very useful library when creating rest api's in node.js. It
+      reduces alot of the boilerplate code, and makes the process of making a
+      server and it's endpoints simple and easy. It is also very fast, and are
+      very commonly used in the industry aswell. To install express you can type
+      npm install express in the CLI.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+$ npm install express
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>Making the express server</h2>
+    <br />
+    <p>
+      The first step in creating a rest api with node.js and express, is to make
+      and instantiate a server. You should create a file called app.js, which
+      will function as your server.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+<p class="code-comment">// step-1: importing express</p>
+const express = require("express");
+
+<p class="code-comment">// step-2: initialize the server</p>
+const app = express();
+
+<p class="code-comment">// step-2.5: handle the body object being sent from client</p>
+app.use(express.json());
+
+<p class="code-comment">// step-3: specify a port</p>
+app.listen(3000, () => {
+  console.log("Server is running on port", 3000);
+});
+
+<p class="code-comment">// You now have a working running server
+// listening on port 3000!
+</p>
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>Adding functionality - endpoints!</h2>
+    <br />
+    <p>
+      Right now the server is not doing anything, it is just running. We need to
+      make our endpoints for us to be able to send and receive data to and from
+      our rest api. In this example, we will mimic a database by saving it in a
+      local array. We will use the req to get data sent to us, and the res will
+      be used to deliver something back to the client. This code snippet will
+      give you a basic rest api template containing get, post, put, patch,
+      delete.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+
+<p class="code-comment">// movie array</p>
+const movies = [
+    { id: 1, title: "Harry Potter 1" },
+    { id: 2, title: "Don't Look Up" },
+    { id: 3, title: "Did you lock the door?", year: 2021 }
+];
+
+<p class="code-comment">// id for illustration purpose</p>
+let CURRENT_ID = 3;
+
+<p class="code-comment">// get</p>
+app.get("/movies", (req, res) => {
+  res.send({ data: movies });
+});
+
+<p class="code-comment">// post</p>
+app.post("/movies", (req, res) => {
+  const sentMovie = req.body;
+  sentMovie.id = ++CURRENT_ID;
+  movies.push(sentMovie);
+
+  res.send({ data: sentMovie });
+});
+
+<p class="code-comment">// put</p>
+app.put("/movies/:id", (req, res) => {
+  const foundMovie = movies.find((movie) => {
+    return movie.id === req.params.id;
+  })
+  if(foundMovie !== -1){
+    const updatedMovie = { ...req.body, id: foundMovie.id };
+    movies[req.params.id] = updatedMovie;
+
+    res.send({ message: Movie updated! });
+  } else {
+    res.status(404).send({ message: Movie not found! });
+  }
+});
+
+<p class="code-comment">// patch</p>
+app.patch("/movies/:id", (req, res) => {
+  const foundMovieIndex = movies.findIndex(
+    movie => movie.id === Number(req.params.id)
+  );
+  if (foundMovieIndex !== -1) {
+    const foundMovie = movies[foundMovieIndex];
+    const updatedMovie = {
+      ...foundMovie, 
+      ...req.body, 
+      id: foundMovie.id 
+    };
+      movies[foundMovieIndex] = updatedMovie;
+      res.send({ data: movieToUpdateWith });
+  } else {
+      res.status(404).send({});
+  } 
+});
+
+<p class="code-comment">// delete</p>
+app.delete("/movies/:id", (req, res) => {
+    const foundMovieIndex = movies.findIndex(
+    movie => movie.id === Number(req.params.id)
+  );
+  if (foundMovieIndex !== -1) {
+    movies.splice(foundMovieIndex, 1);
+    res.send({ });
+  } else {
+    res.status(404).send({ });
+  }
+});
+
+<p class="code-comment">// You now have a full CRUD-able rest api,
+// made with node.js and express!
+</p>
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+</main>

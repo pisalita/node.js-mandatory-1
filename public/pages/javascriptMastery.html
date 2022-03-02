@@ -1,0 +1,334 @@
+<main class="content-container">
+  <h1>Javascript Mastery</h1>
+
+  <section class="content-section">
+    <h2>Data Types</h2>
+    <br />
+    <p>These are the most common data types in javascript</p>
+    <br />
+    <ul>
+      <li>String</li>
+      <li>Number</li>
+      <li>Boolean</li>
+      <li>Undefined</li>
+      <li>Arrays (which actually is an object)</li>
+      <li>Objects</li>
+    </ul>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+const str = "String";
+const num = 3;
+const bool = true;
+let undef;
+const arr = [];
+const obj = {};
+
+console.log(typeof str);
+console.log(typeof num);
+console.log(typeof bool);
+console.log(typeof undef);
+console.log(typeof arr);
+console.log(typeof obj);
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>Variables</h2>
+    <br />
+    <p>There are 3 main ways to declare a variable in javascript.</p>
+    <br />
+    <ul>
+      <li>var</li>
+      <li>let</li>
+      <li>const</li>
+    </ul>
+    <br />
+    <p>
+      They each differ in functionality, and var is the oldest one of the three.
+      Var is either function or globally scoped, which means you sometimes have
+      access to this variable outside of its scope. This can lead to confusion
+      or errors, and you should no longer use var anymore ever. Let is a newer
+      version of var which is block scoped, and therefore eliminated many of the
+      errors that can occur. Const is essentially the same as let, but you can't
+      change the initial value of it. Except if it is an object, then you can
+      alter the props within it.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+var v = "Declared with var";
+let l = "Declared with let";
+const c = "Declared with const";
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>Type Coercion</h2>
+    <br />
+    <p>
+      Type coercion is essentially javascript, trying to alter or convert a
+      datatype from one thing to another behind the scenes. We as developers do
+      not want that, as it can lead to some unexpected outcomes. One way to not
+      have javascript do this is using === instead of == when doing conditional
+      programming. Doing this will force javascript to also validate the data
+      types aswell.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+<p class="code-comment">
+// will print true because it does type coercion.
+</p>
+console.log("1" == 1);
+
+<p class="code-comment">
+// will print false because it does not do type coercion.
+</p>
+console.log("1" === 1);
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>Hoisting</h2>
+    <br />
+    <p>
+      Hoisting is a complex javascript principle, which essentially means, that
+      in practise some code will get pushed to the top of your codebase. This
+      knowledge is useful when using and talking about functions, which i cover
+      in the next section.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Functions</h2>
+    <br />
+    <p>
+      You can create functions in javascript and call them at a later point,
+      just like most programming languages. There are multiple ways to create
+      functions in javascript. function declarations (hoisted), function
+      expressions (not hoisted) and arrow functions. Functions can take in
+      parameters that can be used inside the function scope. This can be all the
+      datatypes we covered earlier and even other functions creating a callback
+      function.
+    </p>
+    <br />
+    <p>
+      Since function expressions is NOT hoisted, it enforces a more clean coding
+      standard, where you always declare your function before calling it. And
+      therefore can limit the amount of errors in a larger program.
+    </p>
+    <br />
+    <p>
+      Arrow functions are a more modern way of doing functions, and is the go to
+      option these days. They offer a cleaner and shorter way to write
+      functions.
+    </p>
+    <br />
+
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+<p class="code-comment">// function declaration - hoisted and you can call this function above it</p>
+function functionDeclaration( PARAMETERS ) {
+  console.log("function declaration");
+}
+
+<p class="code-comment">// function call</p>
+functionDeclaration();
+
+-------------------------------------------------------
+<p class="code-comment">
+// function expression - NOT hoisted and you can NOT call this function above it
+</p>
+const functionExpression = function ( PARAMETERS ) {
+  console.log("function expression");
+};
+<p class="code-comment">
+// function call
+</p>
+functionExpression();
+
+-------------------------------------------------------
+<p class="code-comment">
+// arrow function - NOT hoisted and you can NOT call this function above it
+</p>
+const arrowFunction = ( PARAMETERS ) => {
+  console.log("arrow function");
+}
+<p class="code-comment">
+// function call
+</p>
+arrowFunction();
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>Array methods</h2>
+    <br />
+    <p>
+      Arrays are used alot in every programming language, and javascript is no
+      different. Arrays comes with some very useful methods and here i will
+      cover a few of them. Using these methods will make your code drasticly
+      cleaner and more optimized. In this section i will cover the filter, map,
+      forEach and find method.
+    </p>
+    <br />
+    <p>
+      The filter method creates and return a new array based on the old array,
+      filtering the items based on if the condition you specify is true or
+      false. So it essentially creates a new array for you, which is then
+      returned with new values based on the old array and your condition. This
+      method will not change the underlined array/object you are filtering!
+    </p>
+    <br />
+    <p>
+      The map method allows you to take 1 array, and convert it into a new
+      array, so all the items is going to look different. In this method, you
+      just specify what parts of the old array you want to copy into the new
+      array, and you can even alter the values aswell. This method will not
+      change the underlined array/object you are filtering!
+    </p>
+    <br />
+    <p>
+      The forEach method loops through an array, but does not actually return
+      anything. This method can change the array you are looping through. This
+      reduces the code needed to just loop through an array, where the syntax in
+      other traditional programming languages are lengthy and more clunky.
+    </p>
+    <br />
+    <p>
+      The find method allows you to find a specific object in an array, and
+      return it. This is based on true false, and return the first item that is
+      true.
+    </p>
+    <br />
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+const items = [
+  { name: "Bike", price: 100 },
+  { name: "TV", price: 200 },
+  { name: "Album", price: 10 },
+  { name: "Book", price: 5 },
+  { name: "Phone", price: 500 },
+  { name: "Computer", price: 1000 },
+  { name: "Keyboard", price: 25 },
+];
+
+-------------------------------------------------------
+<p class="code-comment">
+// The filter method
+</p>
+<p class="code-comment">
+// Returns a new array with all items where price is 100 or less.
+</p>
+const filteredItems = items.filter((item) => {
+  return item.price <= 100;
+});
+
+console.log(filteredItems);
+console.log(items);
+
+-------------------------------------------------------
+<p class="code-comment">
+// The map method
+</p>
+<p class="code-comment">
+// Returns a new array with only the names.
+</p>
+const itemNames = items.map((item) => {
+  return item.name;
+});
+
+console.log(itemNames);
+console.log(items);
+
+-------------------------------------------------------
+<p class="code-comment">
+// The forEach method
+</p>
+<p class="code-comment">
+// Loops through an array and do something with it.
+</p>
+items.forEach((item) => {
+  console.log(item.name);
+});
+
+-------------------------------------------------------
+<p class="code-comment">
+// The find method
+</p>
+<p class="code-comment">
+// Loops through an array and return the first object 
+// where the condition is true.
+</p>
+const foundItem = items.find((item) => {
+  return item.name === "Book";
+});
+
+console.log(foundItem);
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>Spread operator</h2>
+    <br />
+    <p>
+      The spread operator is very useful, as it provide a very clean and short
+      way of doing what some of these array methods are doing. If you for
+      example need to copy one array into another array, you can easily use the
+      spread operator to do this very quickly, with very little code required.
+      When using the spread operator, you basicly rip out the guts of an array
+      or object, and can then assign those values into a new array or new
+      object. You can even add more data along with the other data you are
+      getting from the spread operator.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+const arr1 = [1, 2, 3, 4, 5];
+let arr2 = [];
+let arr3 = [];
+
+<p class="code-comment">// Using the spread operator to pass all the values 
+// from arr1 into a new array arr2</p>
+arr2 = [...arr1];
+console.log(arr2);
+
+<p class="code-comment">// Doing the same here, but also adding values with it</p>
+arr3 = [...arr1, 7, 8, 9];
+console.log(arr3);
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+</main>

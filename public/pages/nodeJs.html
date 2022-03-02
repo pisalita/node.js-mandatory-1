@@ -1,0 +1,214 @@
+<main class="content-container">
+  <h1>Node.js</h1>
+
+  <section class="content-section">
+    <h2>V8 Javascript engine</h2>
+    <br />
+    <p>
+      The node.js is a cross-playform javascript runtime environment. It uses
+      the V8 javascript engine, which is the core of google chrome. This allows
+      node.js to be very performant and run on a server aswell as in a browser!
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Running files in node</h2>
+    <br />
+    <p>
+      Since node is a runtime environment on the backend, we can tell the server
+      to run a specific file. The way we do it is by navigating to the folder,
+      the file is in and then write node (name of the file/script). You don't
+      have to navigate to the folder, if you specify the full path to the file.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>NPM/Yarn</h2>
+    <br />
+    <p>
+      Npm and yarn are packet managers that comes along with node.js. They are a
+      big part of making node.js solutions, and are very important tools. They
+      are a collection of software tools that automates the process of
+      installing, upgrading, configuring and removing third party libraries and
+      tools into your node.js project.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>File System</h2>
+    <br />
+    <p>
+      To handle file operations like creating, reading, deleting, etc., Node.js
+      provides an inbuilt module called FS (File System). To use this File
+      System module, use the require() method.
+    </p>
+    <p>
+      Common use for the file system includes: read files, write files, append
+      files, close files, delete files.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+<p class="code-comment">// importing the fs module.</p>      
+const fs = require('fs');   
+
+<p class="code-comment">// example: reading a file with fs</p>  
+const javascriptMastery = fs
+  .readFileSync("./public/pages/javascriptMastery.html")
+  .toString();
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>__dirname</h2>
+    <br />
+    <p>
+      __dirname is an environment variable that tells you the absolute path of
+      the directory containing the currently executing file. It is very useful,
+      as it provide a quick and easy way to dynamicly get the absolute path on
+      any machine.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+<p class="code-comment">// exampls: console logging the __dirname</p>      
+console.log(__dirname);
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>Package.json</h2>
+    <br />
+    <p>
+      When installing third party software/libraries with a package manager, the
+      dependency gets added in the package.json file. This is where dependencies
+      are "declared". You can manually add the dependency in this file, and then
+      run npm install to install all the declared dependencies into the
+      node_modules folder. You can create this file yourself, or initialize it
+      with the npm init command. Beside this, you can find meta info about the
+      project in this file, along with build steps/details.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+{
+  <p class="code-comment">// meta data</p>
+  "name": "mandatory-1",
+  "version": "1.0.0",
+  "description": "Mandatory-1",
+  "main": "app.js",
+  <p class="code-comment">// build steps/details</p>
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js"
+  },
+  "author": "Jimmi",
+  "license": "MIT",
+  <p class="code-comment">// dependencies</p>
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "engines": {
+    "node": "16.x"
+  }
+}            
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="content-section">
+    <h2>Node_modules</h2>
+    <br />
+    <p>
+      This folder is where all the dependency installations get stored. This
+      folder is typically not pushed and shared, since it can get quite huge.
+      Therefore you should always do a npm install when cloning or pulling from
+      a project, to make sure you get all the modules installed in your local
+      environment.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Package-lock.json</h2>
+    <br />
+    <p>
+      This file hold more details about the dependencies, like a more specified
+      version number on each one. It describes the exact tree that was
+      generated, such that subsequent installs are able to generate identical
+      trees, regardless of intermediate dependency updates.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Nodemon</h2>
+    <br />
+    <p>
+      nodemon is a command-line interface (CLI) utility that wraps your Node
+      app, watches the file system, and automatically restarts the process. When
+      you are using node you have to restart on your own to see the changes you
+      made But nodemon watches the particular path for any changes. If you make
+      any changes in your file, nodemon will restart it for you.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Heroku</h2>
+    <br />
+    <p>
+      Heroku is a container-based cloud Platform as a Service (PaaS). Developers
+      use Heroku to deploy, manage, and scale modern apps. See the code snippet
+      to get an idea of the deployment process.
+    </p>
+    <details>
+      <summary>Code Snippet</summary>
+      <div class="snippet-content">
+        <pre>
+          <code>
+
+<p class="code-comment">// step-1: Commit the whole app to your git repository</p>
+$ git add .
+$ git commit -m "message"
+$ heroku login
+Here you will get promted for your heroku login details
+
+<p class="code-comment">// step-2: Create the app on Heroku</p>
+$ heroku create
+
+<p class="code-comment">// step-2.5: Remove old relationship,
+//if creating a new heroku app. (not needed if it is a new project)
+//then re-add the remote url
+</p>
+$ git remote rm heroku
+$ heroku git:remote -a "Your heroku url"
+
+<p class="code-comment">// step-3: Push code to heroku main</p>
+$ git push heroku main
+
+If you need to deploy a subfolder, run this command instead:
+$ git subtree push --prefix "subfolder" heroku master
+
+<p class="code-comment">// That's it, you have now deployed on heroku!</p>
+          </code>
+        </pre>
+      </div>
+    </details>
+  </section>
+</main>
