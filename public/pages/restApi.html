@@ -165,12 +165,14 @@ app.delete("/movies/:id", (req, res) => {
       overview. The most common order is the following: get, post, put, patch,
       delete.
     </p>
+    <br />
     <p>
       the get method fetches all the resources. the post method creates a
       specific new resource. the put method updates a specific resource. the
       patch method partially updates a specific resource. the delete method
       deletes a specific resource.
     </p>
+    <br />
     <p>
       When naming your endpoints, you have to think about what the table in the
       database is called, as these should directly map to that table. This means
@@ -178,6 +180,7 @@ app.delete("/movies/:id", (req, res) => {
       not map to anything in our database. In our case our array that mimics a
       database.
     </p>
+    <br />
     <p>
       You can have multiple of the same endpoints, as long as the HTTP method
       differ. This is why both our get and post method have the same endpoint,
